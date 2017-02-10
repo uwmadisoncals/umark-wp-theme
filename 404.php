@@ -1,50 +1,34 @@
 <?php
 /**
- * The template for displaying 404 pages (Not Found).
+ * The template for displaying 404 pages (not found).
  *
- * @package WordPress
- * @subpackage UW_Madison
- * @since UW-Madison 1.0
+ * @link https://codex.wordpress.org/Creating_an_Error_404_Page
+ *
+ * @package UW Theme
  */
 
 get_header(); ?>
 
-<main id="main" class="group">
-	<div id="primary">
-		<div id="content">
+	<div id="primary" class="content-area row">
+		<main id="main" class="site-main">
 
-			<article id="post-0" class="post error404 not-found">
-				<header class="entry-header">
-					<h1 class="entry-title"><?php _e( 'Page not found', 'uw-madison-160' ); ?></h1>
+			<section class="error-404 not-found">
+				<header class="page-header">
+					<h1 class="page-title"><?php _e( 'Oops! That page can&rsquo;t be found.', 'uw-theme' ); ?></h1>
 				</header>
 
-				<div class="entry-content">
-					<p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching, or one of the links below, can help.', 'uw-madison-160' ); ?></p>
+				<div class="page-content">
+					<p><?php _e( 'It looks like nothing was found at this location. Maybe try a search?', 'uw-theme' ); ?></p>
 
 					<?php get_search_form(); ?>
+				</div>
+			</section>
 
-					<?php the_widget( 'WP_Widget_Recent_Posts', array( 'number' => 10 ), array( 'widget_id' => '404' ) ); ?>
+		</main>
 
-					<div class="widget">
-						<h2 class="widgettitle"><?php _e( 'Most Used Categories', 'uw-madison-160' ); ?></h2>
-						<ul>
-						<?php wp_list_categories( array( 'orderby' => 'count', 'order' => 'DESC', 'show_count' => 1, 'title_li' => '', 'number' => 10 ) ); ?>
-						</ul>
-					</div>
+		<?php get_sidebar( 'content-bottom' ); ?>
 
-					<?php
-					/* translators: %1$s: smilie */
-					$archive_content = '<p>' . __( 'Try looking in the monthly archives.', 'uw-madison-160' ) . '</p>';
-					the_widget( 'WP_Widget_Archives', array('count' => 0 , 'dropdown' => 1 ), array( 'after_title' => '</h2>'.$archive_content ) );
-					?>
+	</div>
 
-					<?php the_widget( 'WP_Widget_Tag_Cloud' ); ?>
-
-				</div><!-- .entry-content -->
-			</article><!-- #post-0 -->
-
-		</div><!-- #content -->
-	</div><!-- #primary -->
-</main>
-
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>

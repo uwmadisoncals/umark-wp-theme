@@ -1,40 +1,42 @@
 <?php
 /**
- * The template for displaying all pages.
+ * The standard Page template.
  *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site will use a
- * different template.
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package WordPress
- * @subpackage UW_Madison
- * @since UW-Madison 1.0
+ * @package UW Theme
  */
 
-get_header(); ?>
+get_header();
 
-  <main id="main" class="group">
-		<div id="primary">
-			<div id="content">
+// Include the page content template.
+get_template_part( 'content-parts/content', 'hero' ); ?>
 
-				<?php while ( have_posts() ) : the_post(); ?>
+<div id="page" class="content page-builder">
 
-					<?php get_template_part( 'template-parts/content', 'page' ); ?>
+	<main id="main" class="site-main">
+		<?php
 
-					<?php comments_template( '/template-parts/comments.php', true ); ?>
+		if ( site_uses_breadcrumbs() ) { custom_breadcrumbs(); }
+		// Start the loop.
+		while ( have_posts() ) : the_post();
 
-				<?php endwhile; // end of the loop. ?>
+			// Include the page content template.
+			get_template_part( 'content-parts/content', 'page' );
 
-			</div><!-- #content -->
-		</div><!-- #primary -->
+			// If comments are open or we have at least one comment, load up the comment template.
+			if ( comments_open() || get_comments_number() ) {
+				comments_template();
+			}
 
-    <?php
-      $uwmadison_use_sidebar = get_post_meta( $post->ID, '_uwmadison_use_sidebar', true );
-      if ( $uwmadison_use_sidebar || !is_numeric( $uwmadison_use_sidebar ) ) {
-        get_sidebar();
-      }
-    ?>
+			// End of the loop.
+		endwhile;
+		?>
 
-  </main>
+	</main>
+
+</div>
+
+<?php get_template_part( 'content-parts/content', 'lower' ); ?>
+
 <?php get_footer(); ?>

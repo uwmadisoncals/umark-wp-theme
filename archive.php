@@ -1,65 +1,62 @@
 <?php
 /**
- * The template for displaying Archive pages.
+ * The template for displaying an archive of all posts.
+ * To create an archive specific to a category, create category.php
  *
- * Used to display archive-type pages if nothing more specific matches a query.
- * For example, puts together date-based pages if no date.php file exists.
+ * @link https://codex.wordpress.org/Template_Hierarchy
  *
- * Learn more: http://codex.wordpress.org/Template_Hierarchy
- *
- * @package WordPress
- * @subpackage UW_Madison
- * @since UW-Madison 1.0
+ * @package UW Theme
  */
 
 get_header(); ?>
 
-	<main id="main" class="group">
-		<div id="primary">
-			<div id="content">
+<div id="page" class="content">
+	<main id="main" class="site-main" role="main">
 
-			<?php if ( have_posts() ) : ?>
+		<?php if ( site_uses_breadcrumbs() ) { custom_breadcrumbs(); } ?>
 
-				<header class="uw-page-header">
-					<?php the_archive_title( '<h1 class="uw-page-title uw-mini-bar">', '</h1>' ); ?>
-				</header>
-				
-				<div class="posts">
-				<?php /* Start the Loop */ ?>
-					<?php while ( have_posts() ) : the_post(); ?>
+	<?php if ( have_posts() ) :
+	         $post_type = get_post_type();  ?>
 
-						<?php
-							/* Include the Post-Format-specific template for the content.
-							 * If you want to overload this in a child theme then include a file
-							 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-							 */
-							get_template_part( 'template-parts/content', get_post_format() );
-						?>
+		<header class="page-header">
+			<?php
+			the_archive_title( '<h1 class="page-title uw-mini-bar">', '</h1>' );
+			the_archive_description( '<div class="taxonomy-description">', '</div>' );
+			?>
+		</header>
 
-					<?php endwhile; ?>
-				</div>
+		<?php
+		// Start the Loop.
+		while ( have_posts() ) : the_post();
 
-				<?php uwmadison_content_nav(); ?>
+				/*
+				 * Include the Post-Format-specific template for the content.
+				 * If you want to override this in a child theme, then include a file
+				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
+				 */
+		     get_template_part( 'content-parts/content', $post_type );
 
-			<?php else : ?>
+		// End the loop.
+		endwhile;
 
-				<article id="post-0" class="post no-results not-found">
-					<header class="entry-header">
-						<h1 class="entry-title"><?php _e( 'Nothing Found', 'uw-madison-160' ); ?></h1>
-					</header><!-- .entry-header -->
+		// Previous/next page navigation.
+		the_posts_pagination( array(
+			'prev_text'          => __( 'Previous page', 'uw-theme' ),
+			'next_text'          => __( 'Next page', 'uw-theme' ),
+			'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'uw-theme' ) . ' </span>',
+		) );
 
-					<div class="entry-content">
-						<p><?php _e( 'Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post.', 'uw-madison-160' ); ?></p>
-						<?php get_search_form(); ?>
-					</div><!-- .entry-content -->
-				</article><!-- #post-0 -->
+	// If no content, include the "No posts found" template.
+	else :
+		get_template_part( 'content-parts/content', 'none' );
 
-			<?php endif; ?>
+	endif;
+	?>
 
-			</div><!-- #content -->
-		</div><!-- #primary -->
-
-		<?php get_sidebar(); ?>
-	
 	</main>
+
+	<?php get_sidebar(); ?>
+
+</div>
+
 <?php get_footer(); ?>
