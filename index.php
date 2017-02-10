@@ -1,68 +1,51 @@
 <?php
 /**
- * The basic/main template file that pulls everything together.
+ * The main template file.
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
+ * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
- * @package UW Theme
- */
-
-
-/**
- * Tells WordPress to load the WordPress theme and output it.
- *
- * @var bool
+ * @package WordPress
+ * @subpackage UW_Madison
  */
 
 get_header(); ?>
 
-<div id="page" class="content">
-	<main id="main" class="site-main">
+	<main id="main" class="group">
+		<div id="primary">
+			<div id="content" role="main">
 
-	<?php if ( site_uses_breadcrumbs() ) { custom_breadcrumbs(); } ?>
+			<?php if ( have_posts() ) : ?>
 
-	<?php if ( have_posts() ) : ?>
+				<?php /* Start the Loop */ ?>
+				<?php while ( have_posts() ) : the_post(); ?>
 
-		<?php if ( is_home() && ! is_front_page() ) : ?>
-			<header>
-				<h1 class="page-title uw-mini-bar"><?php single_post_title(); ?></h1>
-			</header>
-		<?php endif; ?>
+					<?php get_template_part( 'template-parts/content', get_post_format() ); ?>
 
-		<?php
-		// Start the loop.
-		while ( have_posts() ) : the_post();
+				<?php endwhile; ?>
 
-			/*
-			 * Include the Post-Format-specific template for the content.
-			 * If you want to override this in a child theme, then include a file
-			 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-			 */
-			get_template_part( 'content-parts/content', get_post_format() );
+				<?php uwmadison_content_nav(); ?>
 
-		// End the loop.
-		endwhile;
+			<?php else : ?>
 
-		// Previous/next page navigation.
-		the_posts_pagination( array(
-			'prev_text'          => __( 'Previous page', 'uw-theme' ),
-			'next_text'          => __( 'Next page', 'uw-theme' ),
-			'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'uw-theme' ) . ' </span>',
-		) );
+				<article id="post-0" class="post no-results not-found">
+					<header class="uw-page-header">
+						<h1 class="uw-page-title"><?php _e( 'Nothing Found', 'uw-madison-160' ); ?></h1>
+					</header><!-- .entry-header -->
 
-	// If no content, include the "No posts found" template.
-	else :
-		get_template_part( 'content-parts/content', 'none' );
+					<div class="entry-content">
+						<p><?php _e( 'Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post.', 'uw-madison-160' ); ?></p>
+						<?php get_search_form(); ?>
+					</div><!-- .entry-content -->
+				</article><!-- #post-0 -->
 
-	endif;
-	?>
+			<?php endif; ?>
 
+			</div><!-- #content -->
+		</div><!-- #primary -->
+		<?php get_sidebar(); ?>
 	</main>
-
-	<?php if (is_home()) { get_sidebar(); } ?>
-
-</div>
-
 <?php get_footer(); ?>
-
-

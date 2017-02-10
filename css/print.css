@@ -1,0 +1,110 @@
+/* =Print
+----------------------------------------------- */
+
+@media print {
+  body {
+    background: none !important;
+    font-size: 10pt;
+  }
+  .uw-global-bar, .uw-header-search, .uw-mobile-menu-button-bar, #uw-top-menus, .widget-area, footer, .entry-header .comments-link, .entry-meta .edit-link a, #content nav, .entry-header .comments-link, .page-link, #respond, .commentlist .comment-edit-link, .commentlist .reply {
+    display: none;
+  }
+
+  main {
+    border-top: none;
+    box-shadow: none;
+  }
+  #primary {
+    float: none;
+    margin: 0;
+    width: 100%;
+  }
+  #content {
+    margin: 0;
+    width: auto;
+  }
+  .singular #content {
+    margin: 0;
+    width: 100%;
+  }
+  .singular .entry-header .entry-meta {
+    position: static;
+  }
+  .singular .entry-header,
+  .singular .entry-content,
+  .singular footer.entry-meta,
+  .singular #comments-title {
+    margin: 0;
+    width: 100%;
+  }
+  .singular .hentry {
+    padding: 0;
+  }
+  .entry-title,
+  .singular .entry-title {
+    font-size: 21pt;
+  }
+  .entry-meta {
+    font-size: 10pt;
+  }
+  .singular #author-info {
+    background: none;
+    border-bottom: none;
+    border-top: none;
+    margin: 2.2em 0 0;
+    padding: 0;
+  }
+
+  /* Comments */
+  .commentlist > li.comment {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 3px 3px 3px 3px;
+    margin: 0 auto 1.625em;
+    padding: 1.625em;
+    position: relative;
+    width: auto;
+  }
+  .commentlist .avatar {
+    height: 39px;
+    left: 2.2em;
+    top: 2.2em;
+    width: 39px;
+  }
+  .commentlist li.comment .comment-meta {
+    line-height: 1.625em;
+    margin-left: 50px;
+  }
+  .commentlist li.comment .fn {
+    display: block;
+  }
+  .commentlist li.comment .comment-content {
+    margin: 1.625em 0 0;
+  }
+  .commentlist > li::before,
+  .commentlist > li.bypostauthor::before {
+    content: '';
+  }
+
+  /* Post author highlighting */
+  .commentlist > li.bypostauthor {
+    color: #444;
+  }
+  .commentlist > li.bypostauthor .comment-meta {
+    color: #666;
+  }
+  .commentlist > li.bypostauthor:before {
+    content: none;
+  }
+
+  /* Post Author threaded comments */
+  .commentlist  ul > li.bypostauthor {
+    background: #fff;
+    border-color: #ddd;
+  }
+  .commentlist  ul > li.bypostauthor > article,
+  .commentlist  ul > li.bypostauthor > article .comment-meta {
+    color: #666;
+  }
+
+}

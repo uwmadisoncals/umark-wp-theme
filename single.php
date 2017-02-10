@@ -1,52 +1,43 @@
 <?php
 /**
- * The template to display a single post.
+ * The Template for displaying all single posts.
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
- *
- * @package UW Theme
+ * @package WordPress
+ * @subpackage UW_Madison
+ * @since UW-Madison 1.0
  */
 
 get_header(); ?>
 
-<div id="page" class="content">
-	<main id="main" class="site-main">
-		<?php
+  <main id="main" class="group">
+		<div id="primary">
+			<div id="content">
 
-		if ( site_uses_breadcrumbs() ) { custom_breadcrumbs(); }
+				<?php while ( have_posts() ) : the_post(); ?>
 
-		// Start the loop.
-		while ( have_posts() ) : the_post();
-			get_template_part( 'content-parts/content', 'single' );
+					<?php get_template_part( 'template-parts/content', 'single' ); ?>
 
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) {
-				comments_template();
-			}
+					<?php comments_template( '/template-parts/comments.php', true ); ?>
 
-			if ( is_singular( 'attachment' ) ) {
-				// Parent post navigation.
-				the_post_navigation( array(
-					'prev_text' => _x( '<span class="meta-nav">Published in</span><span class="post-title">%title</span>', 'Parent post link', 'uw-theme' ),
-				) );
-			} elseif ( is_singular( 'post' ) ) {
-				// Previous/next post navigation.
-				the_post_navigation( array(
-					'next_text' => '<span class="show-for-sr">' . __( 'Next post:', 'uw-theme' ) . '</span> ' .
-						'<span class="post-title">%title</span>',
-					'prev_text' => '<span class="show-for-sr">' . __( 'Previous post:', 'uw-theme' ) . '</span> ' .
-						'<span class="post-title">%title</span>',
-				) );
-			}
+					<nav class="uw-pagination">
+						<h3 class="assistive-text"><?php _e( 'Post navigation', 'uw-madison-160' ); ?></h3>
+            <div class="uw-pagination-prev-next">
+              <span class="uw-pagination-previous"><?php previous_post_link( '%link', __( '<span class="meta-nav">&larr;</span> Previous', 'uw-madison-160' ) ); ?></span>
+              <span class="uw-pagination-next"><?php next_post_link( '%link', __( 'Next <span class="meta-nav">&rarr;</span>', 'uw-madison-160' ) ); ?></span>
+            </div>
+					</nav><!-- #nav-single -->
 
-			// End of the loop.
-		endwhile;
-		?>
+				<?php endwhile; // end of the loop. ?>
 
-	</main>
+			</div><!-- #content -->
+		</div><!-- #primary -->
 
-	<?php get_sidebar(); ?>
+    <?php
+      $uwmadison_use_sidebar = get_post_meta( $post->ID, '_uwmadison_use_sidebar', true );
+      if ( $uwmadison_use_sidebar || !is_numeric( $uwmadison_use_sidebar ) ) {
+        get_sidebar();
+      }
+    ?>
 
-</div>
-
+  </main>
 <?php get_footer(); ?>

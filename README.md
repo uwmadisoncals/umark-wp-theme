@@ -1,74 +1,90 @@
-## UW Theme
+
+This theme evolved out of the original UW–Madison theme that was first released in 2011. It represents a substantial rewrite of that theme (see Changes section below), adopting current best practices in WordPress theme development, as well as CSS, Javascript, HTML and accessibility. This theme offers a solid, responsive design solution out of the box.
+
+## Using The Theme
+
+The theme is still in development (and versioned as a beta release) but is available for download and testing. (It is being used in a couple production sites: Commencement and Campus Climate.)
+
+After downloading and unzipping the theme, install it in your site’s themes folder and activate through your admin dashboard.
+
+### Using A Child Theme
+
+If you want to extend the theme, it’s best to use a child theme. See the WordPress documentation for Child Themes.
+
+### Customizing the Theme Options
+
+Use WordPress’s Customize screen to set options for the theme. The options that can be set include:
+
+**Colors and Typography:** You can switch between a light grey or white page background. You can flip-flop the red and white background colors of the top global menu bar and the main menu bar. The theme uses the Verlag font face, which is now widely used in campus communications, most notably on wisc.edu. The theme will eventually include the Verlag font files once the purchasing of license has been completed. For now, the Customize screen describes how to turn on Verlag for your site. (University Marketing recommends waiting until the font files are packaged with the theme, which should happen by the end of May depending on the university purchasing process being completed.)
+
+**Header:** The header options allow you to include a search input in your header. The search is the default WordPress search solution. We recommend using search only if your site has more than 50 pages. You can also set a “hero” image (see this demo site’s home page for example) for your site’s home page.
+
+**Layout:**  You can pick between three layout options for your site: two-column with a sidebar on the right or left or one-column (no sidebar). If you choose a two-column layout, the sidebar can be excluded on a page-by-page basis by checking the Include sidebar option in the Page options box when posting a page. The content of your sidebar will be the same across the site. The default content includes the standard WordPress widgets as seen on this demo site. Sidebar widgets can be added, removed and rearranged through the Widgets section in the Customize screen.
+
+**Menus:** The theme supports up to three different menus areas out of the box: the main menu, the secondary menu (which appears in the top menu bar) and two footer menus (which appear as lists of links in the footer under a heading corresponding to the menu name.) The Main and Secondary menus support one level of child, dropdown menus (though we recommend avoiding dropdown menus altogether if possible and instead trying to define a site information architecture that clearly leads your users through your site’s content hierarchy.) See below for more details about setting footer menus.
+
+**Widgets:** There is one “widgetized” area in this theme: the sidebar. By default, the sidebar will use some of WordPress’s standard widgets (e.g. Meta, Archives, Blogroll). Widgets can be added, removed or rearranged to suit your needs. (The Custom Menu widget can be a handy way to add a list or lists of links to your sidebar.)
+
+**Static Front Page:** This exposed WordPress’s built-in option for choosing a page you publish to serve as the front page of your site (instead of showing your most recent posts, which is the default). You first publish a page with content you want to include and then select that page through this option.
+
+**Footer:** The footer options allow you to set an email and phone number, as well as a variety of social media URLs that will appear in your site’s footer. You can also specify up to two footer menus. You first need to create the menus in the menu manager (the menu name you choose will be used as the header in the menu) and then select them in the Footer options. It’s best to include between 4-8 items in each menu if you use them.
+
+## Developing With the Theme
+
+Web developers who use the theme can work with it in a number of different ways:
+
+### As A Child Theme
+
+As with any WordPress theme, you can create a child theme if you want to extend or override its functionality beyond what is possible using the theme customizer. See the WordPress documentation for Child Themes for documentation. The theme does provide a few hooks (see WordPress docs) that might be useful:
+
+**uwmadison_body_classes filter:** Allows you to add additional classes to the <body> element for use in your CSS and JS.
+
+**uwmadison_footer_contacts filter:** Allows you to override or extend the content that appears under the Contact Us header in the footer. E.g. if you needed to show a fax address or a different social media account.
+
+**uw_hero_image filter:** Allows you to override the default markup used for the hero image if one is set in the theme Customizer.
+
+**Aria_Walker_Nav_Menu class filters:** The menu walker class includes several filter, not specific to this theme, that allow you to override various aspects of how the menus are output.
+
+If you have suggestions for additional filters or action hooks, please contact us or consider contributing to the theme’s development (see below).
+
+### Customizing CSS
+
+CSS customizations should be done within a child theme. The theme’s source code (not included with the zip download) includes the Sass files used to compile the theme’s CSS. If you’re working with the source code (see below), you can selectively compile in the theme’s source Sass as needed (including variables and a limited number of mixins). The theme’s source includes a Bower dependency for UW Style which is a set of Sass files and some Javascript that University Marketing is developing for use in any website or web app. This will be documented more in the future; for now, please direct questions to wordpress@umark.wisc.edu.
+
+### Building a local environment
+
+Install npm packages:
+
+```
+npm install
+```
+
+Install Bower packages:
+
+```
+bower install
+```
+
+To develop against the theme, you'll need to install it in a local Wordpress project. You can either git clone the theme into your local environment's *themes* directory or clone it elsewhere and symlink it inside the *themes* directory.
+
+The Sass files for the theme can be found inside `assets/scss`. The packaged Gruntfile watches these files plus the Sass files inside bower_components/uw-style/assets/scss (the uw-style project is installed by bower; it includes Sass files used for common UW components).
 
 
+## Changes
 
-### Getting Started
+### See per-release changes listed under this project's *Tags* view
 
-#### Prerequisites
+### Major changes from the 2011 theme
 
-This project consists of a WordPress theme only. If you want to contribute to the creation of this theme you will have to create your own local WordPress development environment and then add the theme.
+To come...
 
-There are a number of ways to do this. WordPress requires: PHP, MySQL, and a server usually Apache or nginx (PHP’s built-in server also works.) Luckily there are tools that have been created to help create a specific development environment for WordPress. Here are a few suggestions on tools that will help you setup a local WordPress environment:
 
-* MAMP - [https://www.mamp.info/en/](https://www.mamp.info/en/) or WAMP (if on windows) - [http://www.wampserver.com/en/](http://www.wampserver.com/en/)
-* Docker  - [https://www.docker.com/](https://www.docker.com/) Wordpress on the Docker hub [https://hub.docker.com/_/wordpress/](https://hub.docker.com/_/wordpress/)
-* VVV (Varying Vagrant Vagrants) - [https://github.com/Varying-Vagrant-Vagrants/VVV](https://github.com/Varying-Vagrant-Vagrants/VVV)
-* Other tool of your choosing
+## Contributing To The Project
 
-If you don't know which one to choose, we recommend starting with option #1. This will give you a better idea of how all the various parts are working together. The other two options create virtual workspaces to abstract these pieces and may require additional know-how to work with them.
+### Reporting Issues And Requesting Features
 
-#### Setting it up
+Please use the GitLab Issues tool inside the project to report issues and/or feature requests.
 
-You need git to clone the repository. You can get git from
-[http://git-scm.com/](http://git-scm.com/).
+### Contributing Code
 
-We also use a number of node.js tools to initialize the project. You must have node.js and its package manager (npm) installed.  You can get them from [http://nodejs.org/](http://nodejs.org/).
-
-Have a look at the [Contribution guide](CONTRIBUTING.md) to learn how to best contribute.
-
-Navigate to the `wordpress/wp-content/theme` directory and clone the repository. 
-
-(The theme also supports using PHP's Composer dependency manager for installing the theme if you use Composer. You'll need to add the project repo URL as a Composer repository.)
-
-#### Building the project assets
-Once npm is installed type `npm install` from the project directory. After the install is complete it will build the CSS and bundle the JavaScript. 
-
-At anytime you can manually build the project assets by typing `npm run build`
-
-Other helpful npm commands:  
-`npm run build-css` - compiles the sass files to css and outputs them to `/dist/main.css`  
-`npm run watch-css` - watches the sass files for changes and recompiles the sass files  
-`npm run build-js` - builds the javascript bundle and outputs the results to `/dist/main.js`
-
-`npm run build-prod` - minifies, uglifies project assets for production to `/dist/`. Set WP_DEBUG flag to false to use the production assets.
-
-#### Setting up browser sync
-Edit the `/.bin/dev-url` file and replace the url in the file with your local WordPress url. (This file is ignored by the repo so don't worry about committing changes.)
-
-Then run `npm run dev` which will watch the sass files for changes and build the css and reload the browser. Currently it's setup to use Chrome as your browser of choice but can be configured to use other browsers. [See how](https://www.browsersync.io/docs/)
-
-#### Foundation 6
-This theme uses a custom version of [Foundation](http://foundation.zurb.com/) the responsive framework. When making changes to the foundation theme do so in the `_settings.scss` file located in `assets/styles` The settings file is for any specific changes to the framework itself including: variables, media queries, component styles etc. Before adding custom styles see what's possible within the settings file first.
-
-The theme uses a subset of Foundation components. The current included components are found in the `assets/styles/foundation.scss` file.
-
-The theme also includes a collection of UW- and theme-specific components, with corresponding Sass files. Any other custom styles that fall outside of the Foundation packaged components and the theme- and UW-specific components, should be added to the `assets/styles/custom.scss` file.
-
-### Contributing
-
-See the [Contribution Guide](CONTRIBUTING.md) to learn how to contribute fixes and features to the project.
-
-### Theme Templates, Short Codes and Filter Hooks
-
-Useful notes to read when developing child themes for the UW Theme
-
-* [Theme partial templates](https://git.doit.wisc.edu/uw-madison-digital-strategy/uw-theme/wikis/partial-templates)
-* [Action Hook Page Builder Element](https://git.doit.wisc.edu/uw-madison-digital-strategy/uw-theme/wikis/action-hook-page-element)
-* [Short codes](https://git.doit.wisc.edu/uw-madison-digital-strategy/uw-theme/wikis/short-codes)
-* [Filter hooks](https://git.doit.wisc.edu/uw-madison-digital-strategy/uw-theme/wikis/filter-hooks)
-
-### Accessibility
-See the [Accessibility Guide] (https://git.doit.wisc.edu/uw-madison-digital-strategy/uw-theme/wikis/accessibility) to learn about the theme's Accessibility standards and decision points in the building of this theme.
-
-### Changes
-See the [CHANGELOG](CHANGELOG.md) for details about what changes with each release.
+We welcome contributions to the code. To contribute, fork the repository, create a branch for your contribution, make and commit your code changes, push your branch to git.doit.wisc.edu and them make a merge request when you are ready. Please try to first submit an issue and let us know you’d like to work on it before submitting the merge request. Please keep merge requests as focused as possible. Let us know if you have questions by emailing wordpress@umark.wisc.edu.
